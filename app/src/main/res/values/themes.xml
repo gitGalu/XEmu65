@@ -1,0 +1,39 @@
+<resources>
+
+    <style name="FullScreenTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AboutTheme" parent="FullScreenTheme">
+        <item name="about_libraries_title_description">@color/colorAboutDescTitle</item>
+        <item name="about_libraries_title_openSource">@color/colorAboutLicenseTitle</item>
+        <item name="about_libraries_window_background">@color/colorAboutWindowBg</item>
+        <item name="about_libraries_card">@color/colorAboutCardBg</item>
+        <item name="about_libraries_text_openSource">@color/colorAboutCardLicenseText</item>
+    </style>
+
+    <style name="NormalTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="selectableItemBackground">@drawable/file_selector</item>
+    </style>
+
+    <style name="LicensesTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

@@ -1,0 +1,200 @@
+/*
+ * Copyright (C) 2017 Michal Galinski
+ *
+ * This file is part of XEmu65, an Atari 8-bit computer emulator for Android.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+package info.galu.dev.xemu65.filebrowser;
+
+import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
+import java.io.File;
+
+import eu.davidea.fastscroller.FastScroller;
+import eu.davidea.flexibleadapter.SelectableAdapter;
+import eu.davidea.flexibleadapter.items.IFlexible;
+import info.galu.dev.xemu65.Codes;
+import info.galu.dev.xemu65.EmuActivity;
+import info.galu.dev.xemu65.R;
+
+/**
+ * Created by gitGalu on 2017-11-24.
+ */
+
+public class FileBrowser extends AppCompatActivity {
+
+    private FlexibleFileAdapter<IFlexible> adapter;
+
+    private int REQ_PERM_CODE = 1010;
+    private static final String[] requiredPermissions = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        prepareUI();
+
+        requestPermissionIfNeeded();
+
+        prepareBrowser();
+    }
+
+    private void prepareUI() {
+        setContentView(R.layout.file_browser);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void prepareBrowser() {
+        SharedPreferences sp = getSharedPreferences(Codes.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        String targetDir = sp.getString(Codes.PREF_KEY_LAST_DIR, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+
+        adapter = new FlexibleFileAdapter<>(this, targetDir);
+        adapter.setAnimationOnScrolling(true).setAnimationOnReverseScrolling(true);
+        adapter.setMode(SelectableAdapter.Mode.IDLE);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setAdapter(adapter);
+
+        FastScroller fastScroller = findViewById(R.id.fast_scroller);
+        fastScroller.setMinimumScrollThreshold(70);
+        fastScroller.setBubbleAndHandleColor(getResources().getColor(R.color.colorPrimary));
+        adapter.setFastScroller(fastScroller);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+
+    public void goFile(String file) {
+        SharedPreferences sp = getSharedPreferences(Codes.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        String lastDir = new File(file).getParentFile().toString();
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(Codes.PREF_KEY_LAST_DIR, lastDir);
+        editor.commit();
+        Intent fileIntent = new Intent(this, EmuActivity.class);
+        fileIntent.putExtra(Codes.FILE_PATH, file);
+        setResult(Codes.RESULT_FILE_BROWSER_OK, fileIntent);
+        finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_files, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    private void requestPermissionIfNeeded() {
+        boolean allGranted = allPermissionsGranted(this, requiredPermissions);
+        if (!allGranted) {
+            ActivityCompat.requestPermissions(this,
+                    requiredPermissions, REQ_PERM_CODE);
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQ_PERM_CODE) {
+            boolean allGranted = true;
+            for (int result : grantResults) {
+                if (result == PackageManager.PERMISSION_DENIED) {
+                    allGranted = false;
+                    break;
+                }
+            }
+
+            if (!allGranted) {
+                //TODO
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.permissions_storage_message)
+                        .setTitle(R.string.permissions_storage_title);
+
+                builder.setPositiveButton(R.string.permissions_storage_button_exit, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //TODO check
+                    }
+                });
+
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+                });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                prepareBrowser();
+            }
+        }
+    }
+
+    public static boolean allPermissionsGranted(Context context, String[] permissions) {
+        for (String perm : permissions) {
+            if (ContextCompat.checkSelfPermission(context, perm) == PackageManager.PERMISSION_DENIED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+}

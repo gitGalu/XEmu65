@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#d32f2f</color>
+    <color name="colorPrimaryDark">#9a0007</color>
+    <color name="colorAccent">#ff0000</color>
+    <color name="colorLight">#d15d5c</color>
+    <color name="colorListBackground">#373737</color>
+    <color name="colorListBackgroundLight">#616161</color>
+    <color name="colorQuickjoyButtonBg">#00222222</color>
+    <color name="colorAboutDescTitle">#d32f2f</color>
+    <color name="colorAboutLicenseTitle">#d32f2f</color>
+    <color name="colorAboutWindowBg">#373737</color>
+    <color name="colorAboutCardBg">#373737</color>
+    <color name="colorAboutCardLicenseText">#bbbbbb</color>
+</resources>

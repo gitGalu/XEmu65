@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_FastScroller">year;owner</string>
+    <string name="library_FastScroller_author">AndroidDeveloperLB, Davide Steduto &amp; Arpinca</string>
+    <string name="library_FastScroller_authorWebsite">https://github.com/davideas</string>
+    <string name="library_FastScroller_libraryName">FastScroller</string>
+    <string name="library_FastScroller_libraryDescription">
+    </string>
+    <string name="library_FastScroller_libraryVersion">5.0.0-rc3</string>
+    <string name="library_FastScroller_libraryWebsite">https://github.com/davideas/FlexibleAdapter</string>
+    <string name="library_FastScroller_licenseId">apache2</string>
+    <string name="library_FastScroller_isOpenSource">true</string>
+    <string name="library_FastScroller_repositoryLink">https://github.com/davideas/FlexibleAdapter</string>
+    <string name="library_FastScroller_classPath">eu.davidea.fastscroller.FastScroller</string>
+    <string name="library_FastScroller_owner">Davide Steduto</string>
+    <string name="library_FastScroller_year">2016-2017</string>
+</resources>
+
+
+

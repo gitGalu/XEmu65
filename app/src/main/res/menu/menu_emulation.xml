@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_file"
+        android:icon="@drawable/ic_eject_white_24dp"
+        android:title="File"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_keys"
+        android:icon="@drawable/ic_keyboard_white_24dp"
+        android:title="Extra keys"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/action_history"
+        android:icon="@drawable/ic_history_white_24dp"
+        android:title="Browse save states"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_update_white_24dp"
+        android:title="Save"
+        app:showAsAction="always" />
+
+    <!--<item-->
+    <!--android:id="@+id/action_quicksave"-->
+    <!--android:icon="@drawable/ic_update_white_24dp"-->
+    <!--android:title="Quick save"-->
+    <!--app:showAsAction="always"/>-->
+
+    <!--<item-->
+    <!--android:id="@+id/action_fullscreen"-->
+    <!--android:icon="@drawable/ic_fullscreen_white_24dp"-->
+    <!--android:title="Full Screen"-->
+    <!--app:showAsAction="always"/>-->
+
+    <item
+        android:id="@+id/action_about"
+        android:icon="@drawable/ic_info_outline_white_24dp"
+        android:title="About"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/ic_help_outline_white_24dp"
+        android:title="Help"
+        app:showAsAction="never" />
+
+</menu>

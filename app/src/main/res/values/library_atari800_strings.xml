@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_Atari800">year;owner</string>
+    <string name="library_Atari800_author">Atari800 Development Team</string>
+    <string name="library_Atari800_authorWebsite">https://github.com/atari800</string>
+    <string name="library_Atari800_libraryName">Atari800</string>
+    <string name="library_Atari800_libraryDescription">
+This is a free and portable Atari 8-bit computer and 5200 console emulator,
+originally written by David Firth and now developed by the Atari800
+Development Team (please see DOC/CREDITS).
+    </string>
+    <string name="library_Atari800_libraryVersion">3.1.0</string>
+    <string name="library_Atari800_librarywebsite">https://atari800.github.io</string>
+    <string name="library_Atari800_licenseId">gpl_2_0</string>
+    <string name="library_Atari800_isOpenSource">true</string>
+    <string name="library_Atari800_repositoryLink">https://github.com/atari800/atari800</string>
+    <string name="library_Atari800_classPath"></string>
+    <string name="library_Atari800_owner">Petr Stehlik</string>
+    <string name="library_Atari800_year">2003-2017</string>
+</resources>

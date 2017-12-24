@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_FancyShowcaseView">year;owner</string>
+    <string name="library_FancyShowcaseView_author">Faruk Toptaş</string>
+    <string name="library_FancyShowcaseView_authorWebsite">https://github.com/faruktoptas</string>
+    <string name="library_FancyShowcaseView_libraryName">FancyShowcaseView</string>
+    <string name="library_FancyShowcaseView_libraryDescription">
+        An easy-to-use customizable show case view with circular reveal animation.
+    </string>
+    <string name="library_FancyShowcaseView_libraryVersion">1.0.0</string>
+    <string name="library_FancyShowcaseView_libraryWebsite">https://github.com/faruktoptas/FancyShowCaseView</string>
+    <string name="library_FancyShowcaseView_licenseId">apache_2_0</string>
+    <string name="library_FancyShowcaseView_isOpenSource">true</string>
+    <string name="library_FancyShowcaseView_repositoryLink">https://github.com/faruktoptas/FancyShowCaseView</string>
+    <string name="library_FancyShowcaseView_classPath"></string>
+    <string name="library_FancyShowcaseView_owner">Faruk Toptaş</string>
+    <string name="library_FancyShowcaseView_year">2017</string>
+</resources>

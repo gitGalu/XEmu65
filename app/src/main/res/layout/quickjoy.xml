@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom"
+    android:gravity="bottom"
+    android:alpha="0.05">
+
+    <info.galu.dev.xemu65.qj.SingleButton
+        android:id="@+id/startButton"
+        android:layout_width="100dp"
+        android:layout_height="52dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorQuickjoyButtonBg" />
+
+
+    <info.galu.dev.xemu65.qj.DualButton
+        android:id="@+id/lr"
+        app:vertical="false"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/colorQuickjoyButtonBg" />
+
+    <info.galu.dev.xemu65.qj.SingleButton
+        android:id="@+id/fire1"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/ud"
+        android:gravity="right"
+        android:background="@color/colorQuickjoyButtonBg" />
+
+    <info.galu.dev.xemu65.qj.DualButton
+        android:id="@+id/ud"
+        app:vertical="true"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorQuickjoyButtonBg" />
+
+</merge>

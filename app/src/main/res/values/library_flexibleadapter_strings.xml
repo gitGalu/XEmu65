@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_FlexibleAdapter">year;owner</string>
+    <string name="library_FlexibleAdapter_author">Davide Steduto</string>
+    <string name="library_FlexibleAdapter_authorWebsite">https://github.com/davideas</string>
+    <string name="library_FlexibleAdapter_libraryName">Flexible Adapter</string>
+    <string name="library_FlexibleAdapter_libraryDescription">
+        Fast and versatile Adapter for RecyclerView which regroups several features into one library to considerably improve the user experience.
+    </string>
+    <string name="library_FlexibleAdapter_libraryVersion">5.0.0-rc3</string>
+    <string name="library_FlexibleAdapter_libraryWebsite">https://github.com/davideas</string>
+    <string name="library_FlexibleAdapter_licenseId">apache_2_0</string>
+    <string name="library_FlexibleAdapter_isOpenSource">true</string>
+    <string name="library_FlexibleAdapter_repositoryLink">https://github.com/davideas</string>
+    <string name="library_FlexibleAdapter_classPath"></string>
+    <string name="library_FlexibleAdapter_owner">Davide Steduto</string>
+    <string name="library_FlexibleAdapter_year">2015-2017</string>
+</resources>

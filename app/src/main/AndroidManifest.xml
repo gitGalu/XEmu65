@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="info.galu.dev.xemu65"
+    android:installLocation="auto"
+    android:versionCode="1"
+    android:versionName="0.1">
+
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <android:uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name">
+        <activity
+            android:name="info.galu.dev.xemu65.EmuActivity"
+            android:label="@string/activity_title"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="*" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.xex" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="info.galu.dev.xemu65.savebrowser.SaveBrowser"
+            android:label="@string/activity_title"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme"></activity>
+
+        <activity
+            android:name="info.galu.dev.xemu65.about.AboutActivity"
+            android:label="@string/activity_title"
+            android:screenOrientation="landscape"
+            android:theme="@style/AboutTheme"></activity>
+
+        <activity
+            android:name="info.galu.dev.xemu65.filebrowser.FileBrowser"
+            android:label="@string/activity_title"
+            android:screenOrientation="landscape"
+            android:theme="@style/NormalTheme"></activity>
+
+    </application>
+
+</manifest>

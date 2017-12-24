@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">XEmu65</string>
+    <string name="activity_title">XEmu65</string>
+    <string name="about_description"><![CDATA[<b>XEmu65</b> (C) 2017 <b>Michał Galiński</b>.<br/><b>Atari800</b> (C) <b>David Firth</b>, (C) <b>Atari800 Development Team</b>.<br/>Based on official port of <b>Atari800</b> for Android by <b>Kostas Nakos</b>.<br/>Atari ROM and Atari BASIC replacements by <b>Avery Lee</b>.<br/>Licensed under GNU General Public License v2.<br/>This app is not affiliated or endorsed by Atari Inc.]]></string>
+    <string name="about_app_name">XEmu65 - Emulator of Atari 8-bit computers.</string>
+    <string name="save_snack_message">This savestate will be deleted.</string>
+    <string name="save_snack_undo">UNDO</string>
+    <string name="tutorial_caption_fullscreen">Toggle full screen.</string>
+    <string name="permissions_storage_message">You have to grant the Storage permission to access files on your device. Please enable the permission in Application settings.</string>
+    <string name="permissions_storage_title">Fatal error.</string>
+    <string name="permissions_storage_button_exit">Exit</string>
+    <string name="mailto_developer">mailto:developer@galu.info</string>
+    <string name="tutorial_caption_keys">Additional keyboard keys.</string>
+    <string name="tutorial_caption_save_state">Save state.</string>
+    <string name="tutorial_caption_load_state">Load state.</string>
+    <string name="tutorial_caption_load_game">Load game.</string>
+    <string name="tutorial_caption_joystick">Touch-optimized joystick controls.</string>
+</resources>

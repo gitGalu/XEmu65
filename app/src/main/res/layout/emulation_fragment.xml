@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <info.galu.dev.xemu65.EmuView
+        android:id="@+id/emuView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="true"
+        app:layout_behavior="info.galu.dev.xemu65.behavior.ShrinkBehavior" />
+
+    <ViewFlipper
+        android:id="@+id/joystickflipper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+
+        <info.galu.dev.xemu65.qj.QuickJoyImpl
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/quickjoy" />
+    </ViewFlipper>
+
+
+    <info.galu.dev.xemu65.qj.SingleButton
+        android:id="@+id/startButton"
+        android:layout_width="100dp"
+        android:layout_height="37dp"
+        android:layout_gravity="left"
+        android:alpha="0.05"
+        app:layout_behavior="info.galu.dev.xemu65.behavior.ButtonBehavior" />
+</FrameLayout>
