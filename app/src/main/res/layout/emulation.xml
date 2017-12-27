@@ -49,7 +49,7 @@
         android:id="@+id/fullScreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?android:selectableItemBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_behavior="info.galu.dev.xemu65.behavior.FSButtonBehavior"
         android:layout_gravity="right"
         android:padding="12dp"
