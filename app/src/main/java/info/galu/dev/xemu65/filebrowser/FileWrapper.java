@@ -212,6 +212,9 @@ public class FileWrapper extends AbstractFlexibleItem<FileWrapper.FileWrapperVie
                 return fileName.substring(0, extensionPos);
             }
             return fileName;
+        } else if (type == Type.DIRECTORY) {
+            String fileName = new File(path).getName();
+            return fileName;
         }
         return path;
     }

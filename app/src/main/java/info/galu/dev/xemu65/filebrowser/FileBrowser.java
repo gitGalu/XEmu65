@@ -36,6 +36,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,20 +115,17 @@ public class FileBrowser extends AppCompatActivity {
 
     }
 
-    public void goFile(String file) {
-        SharedPreferences sp = getSharedPreferences(Codes.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        String lastDir = new File(file).getParentFile().toString();
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(Codes.PREF_KEY_LAST_DIR, lastDir);
-        editor.commit();
+    public void goFile(String filePath) {
+        saveCurrentDir(new File(filePath).getParentFile().toString());
         Intent fileIntent = new Intent(this, EmuActivity.class);
-        fileIntent.putExtra(Codes.FILE_PATH, file);
+        fileIntent.putExtra(Codes.FILE_PATH, filePath);
         setResult(Codes.RESULT_FILE_BROWSER_OK, fileIntent);
         finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     public void goHistory(String path, String file) {
+        saveCurrentDir(path);
         Intent intent = new Intent(this, SaveBrowser.class);
         intent.putExtra(BUNDLE_EXTRA_CURRENT_PATH, path);
         intent.putExtra(BUNDLE_EXTRA_CURRENT_FILE, file);
@@ -135,6 +133,13 @@ public class FileBrowser extends AppCompatActivity {
         intent.putExtra(BUNDLE_EXTRA_EMU_VIEW_HEIGHT, height);
         Bundle bundle = AnimUtils.getActivityTransitionParams(this).toBundle();
         startActivityForResult(intent, Codes.REQUEST_SAVE_BROWSER, bundle);
+    }
+
+    private void saveCurrentDir(String filePath) {
+        SharedPreferences sp = getSharedPreferences(Codes.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(Codes.PREF_KEY_LAST_DIR, filePath);
+        editor.commit();
     }
 
     @Override
