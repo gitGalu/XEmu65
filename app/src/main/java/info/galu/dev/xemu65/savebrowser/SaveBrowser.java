@@ -26,6 +26,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,6 +47,11 @@ import info.galu.dev.xemu65.R;
 import info.galu.dev.xemu65.util.FileUtils;
 import info.galu.dev.xemu65.util.UIUtils;
 
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_CURRENT_FILE;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_CURRENT_PATH;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_EMU_VIEW_HEIGHT;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_EMU_VIEW_WIDTH;
+
 /**
  * Created by gitGalu on 2017-11-23.
  */
@@ -60,6 +66,9 @@ public class SaveBrowser extends AppCompatActivity {
     private List<SaveWrapper> items;
     private int selectedItem = 0;
 
+    private String currentPath;
+    private String currentFile;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +76,10 @@ public class SaveBrowser extends AppCompatActivity {
         prepareUI();
 
         Intent intent = getIntent();
-        String currentPath = intent.getStringExtra("currentPath");
-        String currentFile = intent.getStringExtra("currentFile");
-        int width = intent.getIntExtra("emuViewWidth", DEFAULT_WIDTH);
-        int height = intent.getIntExtra("emuViewHeight", DEFAULT_HEIGHT);
+        currentPath = intent.getStringExtra(BUNDLE_EXTRA_CURRENT_PATH);
+        currentFile = intent.getStringExtra(BUNDLE_EXTRA_CURRENT_FILE);
+        int width = intent.getIntExtra(BUNDLE_EXTRA_EMU_VIEW_WIDTH, DEFAULT_WIDTH);
+        int height = intent.getIntExtra(BUNDLE_EXTRA_EMU_VIEW_HEIGHT, DEFAULT_HEIGHT);
 
         prepareFiles(currentPath, currentFile);
 
@@ -154,9 +163,11 @@ public class SaveBrowser extends AppCompatActivity {
     }
 
     private void saveLoadActionPerformed() {
-        if (selectedItem >= 0) {
+        if (selectedItem >= 0 && items.size() > selectedItem) {
             SaveWrapper saveWrapper = items.get(selectedItem);
             Intent restoreIntent = new Intent(this, EmuActivity.class);
+            restoreIntent.putExtra(Codes.FILE_PATH, currentPath);
+            restoreIntent.putExtra(Codes.FILE_NAME, currentFile);
             restoreIntent.putExtra(Codes.SAVE_STATE_PATH, saveWrapper.getBitmapSrc());
             setResult(Codes.RESULT_SAVE_BROWSER_OK, restoreIntent);
             finish();
@@ -169,7 +180,7 @@ public class SaveBrowser extends AppCompatActivity {
     }
 
     private void saveDeleteActionPerformed() {
-        if (selectedItem >= 0) {
+        if (selectedItem >= 0 && items.size() > selectedItem) {
             final SaveWrapper saveWrapper = items.get(selectedItem);
             if (!saveWrapper.isToDelete()) {
                 saveWrapper.setToDelete(true);

@@ -14,18 +14,33 @@
         android:layout_marginTop="10.5dp"
         android:id="@+id/imageView"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"
+        android:clickable="true" />
+
+
+    <ImageButton
+        android:id="@+id/historyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_history_white_24dp"
+        android:visibility="invisible" />
+
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="Medium Text"
-        android:id="@+id/textView"
         android:layout_toRightOf="@id/imageView"
-        android:layout_toEndOf="@id/imageView"
+        android:layout_toLeftOf="@id/historyBtn"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginRight="16dp"
         android:layout_centerVertical="true" />
 
 </RelativeLayout>

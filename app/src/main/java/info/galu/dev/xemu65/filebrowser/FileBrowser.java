@@ -39,15 +39,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import java.io.File;
-
 import eu.davidea.fastscroller.FastScroller;
 import eu.davidea.flexibleadapter.SelectableAdapter;
 import eu.davidea.flexibleadapter.items.IFlexible;
 import info.galu.dev.xemu65.Codes;
 import info.galu.dev.xemu65.EmuActivity;
 import info.galu.dev.xemu65.R;
+import info.galu.dev.xemu65.savebrowser.SaveBrowser;
+import info.galu.dev.xemu65.util.AnimUtils;
+
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_CURRENT_FILE;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_CURRENT_PATH;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_EMU_VIEW_HEIGHT;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_EMU_VIEW_WIDTH;
 
 /**
  * Created by gitGalu on 2017-11-24.
@@ -55,10 +60,16 @@ import info.galu.dev.xemu65.R;
 
 public class FileBrowser extends AppCompatActivity {
 
+    public static final int DEFAULT_WIDTH = 386;
+    public static final int DEFAULT_HEIGHT = 240;
+    private static final String[] requiredPermissions = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+
     private FlexibleFileAdapter<IFlexible> adapter;
 
     private int REQ_PERM_CODE = 1010;
-    private static final String[] requiredPermissions = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    private int width = DEFAULT_WIDTH;
+    private int height = DEFAULT_HEIGHT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +78,10 @@ public class FileBrowser extends AppCompatActivity {
         prepareUI();
 
         requestPermissionIfNeeded();
+
+        Intent intent = getIntent();
+        width = intent.getIntExtra(BUNDLE_EXTRA_EMU_VIEW_WIDTH, DEFAULT_WIDTH);
+        height = intent.getIntExtra(BUNDLE_EXTRA_EMU_VIEW_HEIGHT, DEFAULT_HEIGHT);
 
         prepareBrowser();
     }
@@ -87,6 +102,7 @@ public class FileBrowser extends AppCompatActivity {
         adapter.setMode(SelectableAdapter.Mode.IDLE);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.addItemDecoration(new FileDividerItemDecoration(this));
         recyclerView.setAdapter(adapter);
 
         FastScroller fastScroller = findViewById(R.id.fast_scroller);
@@ -95,8 +111,8 @@ public class FileBrowser extends AppCompatActivity {
         adapter.setFastScroller(fastScroller);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
 
+    }
 
     public void goFile(String file) {
         SharedPreferences sp = getSharedPreferences(Codes.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -109,6 +125,16 @@ public class FileBrowser extends AppCompatActivity {
         setResult(Codes.RESULT_FILE_BROWSER_OK, fileIntent);
         finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    public void goHistory(String path, String file) {
+        Intent intent = new Intent(this, SaveBrowser.class);
+        intent.putExtra(BUNDLE_EXTRA_CURRENT_PATH, path);
+        intent.putExtra(BUNDLE_EXTRA_CURRENT_FILE, file);
+        intent.putExtra(BUNDLE_EXTRA_EMU_VIEW_WIDTH, width);
+        intent.putExtra(BUNDLE_EXTRA_EMU_VIEW_HEIGHT, height);
+        Bundle bundle = AnimUtils.getActivityTransitionParams(this).toBundle();
+        startActivityForResult(intent, Codes.REQUEST_SAVE_BROWSER, bundle);
     }
 
     @Override
@@ -134,6 +160,22 @@ public class FileBrowser extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case Codes.REQUEST_SAVE_BROWSER:
+                if (resultCode == Codes.RESULT_SAVE_BROWSER_OK) {
+                    Intent fileIntent = new Intent(this, EmuActivity.class);
+                    Bundle resultData = data.getExtras();
+                    fileIntent.putExtra(Codes.FILE_PATH, resultData.getString(Codes.FILE_PATH) + "/" + resultData.getString(Codes.FILE_NAME));
+                    fileIntent.putExtra(Codes.SAVE_STATE_PATH, resultData.getString(Codes.SAVE_STATE_PATH));
+                    setResult(Codes.RESULT_FILE_BROWSER_OK, fileIntent);
+                    finish();
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
+        }
+    }
 
     private void requestPermissionIfNeeded() {
         boolean allGranted = allPermissionsGranted(this, requiredPermissions);

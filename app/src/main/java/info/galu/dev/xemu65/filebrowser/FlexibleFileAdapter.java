@@ -20,6 +20,7 @@
 
 package info.galu.dev.xemu65.filebrowser;
 
+import android.util.Log;
 import android.util.TypedValue;
 
 import java.io.File;
@@ -47,6 +48,7 @@ public class FlexibleFileAdapter<T extends IFlexible> extends FlexibleAdapter {
     FlexibleFileAdapter(FileBrowser context, String initialDir) {
         super(null);
         this.context = context;
+
         goDirectory(initialDir);
 
         TypedValue tValue = new TypedValue();
@@ -58,6 +60,10 @@ public class FlexibleFileAdapter<T extends IFlexible> extends FlexibleAdapter {
         items = new ArrayList();
         items = getDirectory(dir);
         updateDataSet(items);
+    }
+
+    public void goHistory(String path, String file) {
+        context.goHistory(path, file);
     }
 
     public void goFile(String file) {
@@ -79,7 +85,6 @@ public class FlexibleFileAdapter<T extends IFlexible> extends FlexibleAdapter {
                     return true;
                 }
                 // TODO supported file extensions
-
                 return FileUtils.isSupportedExtension(name.getName());
             }
         });

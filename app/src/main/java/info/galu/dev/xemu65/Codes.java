@@ -41,5 +41,12 @@ public class Codes {
     public final static String PREF_KEY_LAST_DIR = "LAST_DIR";
 
     public final static String FILE_PATH = "FILE_PATH";
+    public final static String FILE_NAME = "FILE_NAME";
+
+    public final static String BUNDLE_EXTRA_EMU_VIEW_WIDTH = "emuViewWidth";
+    public final static String BUNDLE_EXTRA_EMU_VIEW_HEIGHT = "emuViewHeight";
+
+    public final static String BUNDLE_EXTRA_CURRENT_PATH = "currentPath";
+    public final static String BUNDLE_EXTRA_CURRENT_FILE = "currentFile";
 
 }

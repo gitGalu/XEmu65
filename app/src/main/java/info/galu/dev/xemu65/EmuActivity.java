@@ -70,6 +70,11 @@ import info.galu.dev.xemu65.qj.QuickJoyImpl;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_CURRENT_FILE;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_CURRENT_PATH;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_EMU_VIEW_HEIGHT;
+import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_EMU_VIEW_WIDTH;
+
 /**
  * Created by gitGalu on 2017-11-07.
  */
@@ -412,11 +417,11 @@ public class EmuActivity extends AppCompatActivity implements DigitalJoyCallback
             File[] saveStateFiles = FileUtils.getSaveStateFiles(currentPath, currentFile);
             if (null != saveStateFiles && (saveStateFiles.length > 0)) {
                 Intent intent = new Intent(this, SaveBrowser.class);
-                intent.putExtra("currentPath", currentPath);
-                intent.putExtra("currentFile", currentFile);
+                intent.putExtra(BUNDLE_EXTRA_CURRENT_PATH, currentPath);
+                intent.putExtra(BUNDLE_EXTRA_CURRENT_FILE, currentFile);
                 Pair<Integer, Integer> dimens = measureTargetDimensions();
-                intent.putExtra("emuViewWidth", dimens.first);
-                intent.putExtra("emuViewHeight", dimens.second);
+                intent.putExtra(BUNDLE_EXTRA_EMU_VIEW_WIDTH, dimens.first);
+                intent.putExtra(BUNDLE_EXTRA_EMU_VIEW_HEIGHT, dimens.second);
                 Bundle bundle = AnimUtils.getActivityTransitionParams(this).toBundle();
                 startActivityForResult(intent, Codes.REQUEST_SAVE_BROWSER, bundle);
                 return;
@@ -426,6 +431,9 @@ public class EmuActivity extends AppCompatActivity implements DigitalJoyCallback
 
     private void fileActionPerformed() {
         Intent fileIntent = new Intent(this, FileBrowser.class);
+        Pair<Integer, Integer> dimens = measureTargetDimensions();
+        fileIntent.putExtra(BUNDLE_EXTRA_EMU_VIEW_WIDTH, dimens.first);
+        fileIntent.putExtra(BUNDLE_EXTRA_EMU_VIEW_HEIGHT, dimens.second);
         Bundle bundle = AnimUtils.getActivityTransitionParams(this).toBundle();
         startActivityForResult(fileIntent, Codes.REQUEST_FILE_BROWSER, bundle);
     }
@@ -458,11 +466,16 @@ public class EmuActivity extends AppCompatActivity implements DigitalJoyCallback
             case Codes.REQUEST_FILE_BROWSER:
                 if (resultCode == Codes.RESULT_FILE_BROWSER_OK) {
                     String filePath = data.getStringExtra(Codes.FILE_PATH);
+                    String savePath = data.getStringExtra(Codes.SAVE_STATE_PATH);
                     String fileName = new File(filePath).getName();
                     MachineConfig cfg = ConfigUtils.guessMachineConfig(fileName);
                     NativePrefEmulation(!cfg.getBasicConfig().isBasicRequired(), false, false, false, false);
                     NativePrefMachine(cfg.getMemConfig().getNum(), false);
                     loadGame(filePath);
+                    if (savePath != null) {
+                        String saveStatePath = FileUtils.formatSaveFileName(savePath);
+                        NativeLoadState(saveStatePath);
+                    }
                 }
                 break;
             case Codes.REQUEST_SAVE_BROWSER:
@@ -487,7 +500,6 @@ public class EmuActivity extends AppCompatActivity implements DigitalJoyCallback
             }
         });
     }
-
 
     private void tutorial() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);

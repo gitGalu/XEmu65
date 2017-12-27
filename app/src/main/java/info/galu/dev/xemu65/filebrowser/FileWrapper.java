@@ -21,16 +21,16 @@
 package info.galu.dev.xemu65.filebrowser;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.io.File;
 import java.util.List;
-
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import eu.davidea.viewholders.FlexibleViewHolder;
 import info.galu.dev.xemu65.R;
+import info.galu.dev.xemu65.util.FileUtils;
 
 /**
  * Created by gitGalu on 2017-11-22.
@@ -50,6 +50,7 @@ public class FileWrapper extends AbstractFlexibleItem<FileWrapper.FileWrapperVie
     private final String name;
     private final FileExtension extension;
     private final Type type;
+    private boolean isHistoryAvailable = false;
     private final int selectableBgId;
 
     public FileWrapper(String path, Type type, FileExtension extension, int selectableBgId) {
@@ -58,6 +59,9 @@ public class FileWrapper extends AbstractFlexibleItem<FileWrapper.FileWrapperVie
         this.extension = extension;
         this.selectableBgId = selectableBgId;
         this.name = new File(path).getName();
+        if (type == Type.FILE) {
+            this.isHistoryAvailable = FileUtils.getSaveStateFilesAvailability(new File(path).getParent(), name);
+        }
     }
 
     public String getPath() {
@@ -74,6 +78,14 @@ public class FileWrapper extends AbstractFlexibleItem<FileWrapper.FileWrapperVie
 
     public String getName() {
         return name;
+    }
+
+    public void setHistoryAvailable(boolean isHistoryAvailable) {
+        this.isHistoryAvailable = isHistoryAvailable;
+    }
+
+    public boolean isHistoryAvailable() {
+        return isHistoryAvailable;
     }
 
     @Override
@@ -127,13 +139,12 @@ public class FileWrapper extends AbstractFlexibleItem<FileWrapper.FileWrapperVie
         if (type == FileWrapper.Type.PARENT_DIRECTORY) {
             holder.icon.setImageResource(R.drawable.ic_subdirectory_arrow_left_white_24dp);
             holder.label.setText(path);
-//            holder.itemView.setBackgroundResource(R.color.colorLight);
             holder.itemView.setBackgroundResource(R.drawable.file_wrapper_parent_row);
             return;
         } else {
             holder.itemView.setBackgroundResource(R.drawable.file_wrapper_bg);
-            // holder.itemView.setBackgroundResource();
-            holder.label.setText(new File(path).getName());
+            holder.label.setText(formatText());
+            holder.historyBtn.setVisibility(isHistoryAvailable ? View.VISIBLE : View.INVISIBLE);
             switch (type) {
                 case FILE:
                     switch (extension) {
@@ -158,11 +169,21 @@ public class FileWrapper extends AbstractFlexibleItem<FileWrapper.FileWrapperVie
     public class FileWrapperViewHolder extends FlexibleViewHolder {
         TextView label;
         ImageView icon;
+        ImageButton historyBtn;
 
         public FileWrapperViewHolder(View view, final FlexibleAdapter adapter) {
             super(view, adapter);
             label = view.findViewById(R.id.textView);
             icon = view.findViewById(R.id.imageView);
+            historyBtn = view.findViewById(R.id.historyBtn);
+            this.historyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.setPressed(true);
+                    FileWrapper item = (FileWrapper) adapter.getItem(getAdapterPosition());
+                    ((FlexibleFileAdapter) adapter).goHistory(new File(item.getPath()).getParent(), item.getName());
+                }
+            });
             this.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -181,8 +202,18 @@ public class FileWrapper extends AbstractFlexibleItem<FileWrapper.FileWrapperVie
                 }
             });
         }
-
     }
 
+    private String formatText() {
+        if (type == Type.FILE) {
+            String fileName = new File(path).getName();
+            int extensionPos = fileName.lastIndexOf(".");
+            if (extensionPos > 0) {
+                return fileName.substring(0, extensionPos);
+            }
+            return fileName;
+        }
+        return path;
+    }
 
 }

@@ -210,6 +210,15 @@ public class FileUtils {
         return foundFiles;
     }
 
+    public static boolean getSaveStateFilesAvailability(String currentPath, String currentFile) {
+        File[] saveStateFiles = getSaveStateFiles(currentPath, currentFile);
+        if (saveStateFiles != null) {
+            return (saveStateFiles.length > 0);
+        } else {
+            return false;
+        }
+    }
+
     public static boolean isSupportedExtension(String name) {
         String nameAllCaps = name.toUpperCase();
         for (String supportedExtension : SUPPORTED_FILE_EXTENSIONS) {

@@ -12,4 +12,5 @@
     <color name="colorAboutWindowBg">#373737</color>
     <color name="colorAboutCardBg">#373737</color>
     <color name="colorAboutCardLicenseText">#bbbbbb</color>
+    <color name="colorDivider">#343434</color>
 </resources>
