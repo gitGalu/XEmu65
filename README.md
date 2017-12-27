@@ -11,7 +11,6 @@
 	- visual save browser
 
 	Known bugs / limitations:
-	- leaving the app shuts down the emulation
 	- only internal storage is supported
 	- possible save state corruption
 	- NTSC modes missing

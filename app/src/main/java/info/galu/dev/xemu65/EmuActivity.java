@@ -488,6 +488,11 @@ public class EmuActivity extends AppCompatActivity implements DigitalJoyCallback
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(true);
+    }
+
     public void initUiChaingeListener() {
         final View decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
