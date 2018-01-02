@@ -15,18 +15,16 @@
 	Known bugs / limitations:
 	- only internal storage is supported
 	- possible save state corruption
-	- NTSC modes missing
 
-	TODOs:
+	TODOs (missing features):
 	- Android 5.0+ compatibility
 	- replace legacy filesystem access by StorageAccessProvider
 	- support for physical controllers (Bluetooth & USB-OTG)
-	- NTSC support
 	- more touchscreen controller schemes, including paddles emulation
 	- support for cassette and cartdridge-based file formats
 	- tablet-optimized user interface
 
-	XEmu65 (C) 2017 Michał Galiński.
+	XEmu65 (C) 2017-2018 Michał Galiński.
 	Atari800 (C) David Firth, (C) Atari800 Development Team.
 	Based on official port of Atari800 for Android by Kostas Nakos.
 	Atari ROM and Atari BASIC replacements by Avery Lee.
