@@ -39,12 +39,13 @@ public class ConfigUtils {
     public static final String TAG_BASIC = "[BASIC]";
     public static final String TAG_OS_A = "[REQ OSA]";
     public static final String TAG_OS_B = "[REQ OSB]";
+    public static final String TAG_130XE = "(130XE)";
 
     private ConfigUtils() {
     }
 
     public static MachineConfig guessMachineConfig(String fileName) {
-        Pattern p = Pattern.compile("\\[([^]]+)\\]");
+        Pattern p = Pattern.compile("\\[([^]]+)\\]|\\(([^)]+)\\)");
         Matcher m = p.matcher(fileName);
 
         MachineConfig cfg = MachineConfig.getDefaultConfig();
@@ -54,6 +55,7 @@ public class ConfigUtils {
                 case TAG_BASIC:
                     cfg.getBasicConfig().setBasicRequired(true);
                     break;
+                case TAG_130XE:
                 case TAG_128K:
                     cfg.setMemConfig(MachineConfig.MemConfig.RAM_128K);
                     break;
