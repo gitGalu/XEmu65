@@ -49,6 +49,7 @@ import info.galu.dev.xemu65.EmuActivity;
 import info.galu.dev.xemu65.R;
 import info.galu.dev.xemu65.savebrowser.SaveBrowser;
 import info.galu.dev.xemu65.util.AnimUtils;
+import info.galu.dev.xemu65.util.PermissionUtil;
 
 import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_CURRENT_FILE;
 import static info.galu.dev.xemu65.Codes.BUNDLE_EXTRA_CURRENT_PATH;
@@ -63,11 +64,8 @@ public class FileBrowser extends AppCompatActivity {
 
     public static final int DEFAULT_WIDTH = 386;
     public static final int DEFAULT_HEIGHT = 240;
-    private static final String[] requiredPermissions = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
     private FlexibleFileAdapter<IFlexible> adapter;
-
-    private int REQ_PERM_CODE = 1010;
 
     private int width = DEFAULT_WIDTH;
     private int height = DEFAULT_HEIGHT;
@@ -78,7 +76,7 @@ public class FileBrowser extends AppCompatActivity {
 
         prepareUI();
 
-        requestPermissionIfNeeded();
+        PermissionUtil.requestPermissionIfNeeded(this);
 
         Intent intent = getIntent();
         width = intent.getIntExtra(BUNDLE_EXTRA_EMU_VIEW_WIDTH, DEFAULT_WIDTH);
@@ -112,7 +110,6 @@ public class FileBrowser extends AppCompatActivity {
         adapter.setFastScroller(fastScroller);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     public void goFile(String filePath) {
@@ -182,19 +179,10 @@ public class FileBrowser extends AppCompatActivity {
         }
     }
 
-    private void requestPermissionIfNeeded() {
-        boolean allGranted = allPermissionsGranted(this, requiredPermissions);
-        if (!allGranted) {
-            ActivityCompat.requestPermissions(this,
-                    requiredPermissions, REQ_PERM_CODE);
-        }
-    }
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQ_PERM_CODE) {
+        if (requestCode == PermissionUtil.REQ_PERM_CODE) {
             boolean allGranted = true;
             for (int result : grantResults) {
                 if (result == PackageManager.PERMISSION_DENIED) {
@@ -204,24 +192,22 @@ public class FileBrowser extends AppCompatActivity {
             }
 
             if (!allGranted) {
-                //TODO
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.permissions_storage_message)
                         .setTitle(R.string.permissions_storage_title);
 
                 builder.setPositiveButton(R.string.permissions_storage_button_exit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //TODO check
                     }
                 });
 
                 builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
+                        Intent fileIntent = new Intent(getApplicationContext(), EmuActivity.class);
+                        setResult(Codes.RESULT_FILE_BROWSER_ERROR, fileIntent);
+                        finish();
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 });
 
@@ -233,15 +219,4 @@ public class FileBrowser extends AppCompatActivity {
             }
         }
     }
-
-    public static boolean allPermissionsGranted(Context context, String[] permissions) {
-        for (String perm : permissions) {
-            if (ContextCompat.checkSelfPermission(context, perm) == PackageManager.PERMISSION_DENIED) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
 }

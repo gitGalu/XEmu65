@@ -34,11 +34,15 @@ public class Codes {
     public final static int RESULT_SAVE_BROWSER_CANCEL = 5102;
 
     public final static int RESULT_FILE_BROWSER_OK = 6101;
+    public final static int RESULT_FILE_BROWSER_ERROR = 6102;
 
     public final static String SAVE_STATE_PATH = "SAVE_STATE_PATH";
 
     public final static String SHARED_PREFS_NAME = "info.galu.dev.xemu65.SHARED_PREFS";
     public final static String PREF_KEY_LAST_DIR = "LAST_DIR";
+    public final static String ORIGINAL_ROMS_AVAILABLE = "ATARI_ROMS";
+    public final static String PREF_ROM = "pref_rom";
+    public final static String PREF_REGION = "pref_region";
 
     public final static String FILE_PATH = "FILE_PATH";
     public final static String FILE_NAME = "FILE_NAME";

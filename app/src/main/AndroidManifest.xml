@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.galu.dev.xemu65"
     android:installLocation="auto"
-    android:versionCode="4"
-    android:versionName="0.1.2">
+    android:versionCode="6"
+    android:versionName="0.1.5">
 
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -53,6 +53,12 @@
             android:label="@string/activity_title"
             android:screenOrientation="landscape"
             android:theme="@style/NormalTheme"></activity>
+
+        <activity
+            android:name="info.galu.dev.xemu65.prefs.EmuPrefsActivity"
+            android:label="@string/activity_title"
+            android:screenOrientation="landscape"
+            android:theme="@style/SettingsTheme"></activity>
 
     </application>
 

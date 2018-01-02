@@ -26,8 +26,10 @@ import android.util.TypedValue;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.IFlexible;
@@ -75,30 +77,63 @@ public class FlexibleFileAdapter<T extends IFlexible> extends FlexibleAdapter {
 
         List<FileWrapper> currentFiles = new ArrayList<>();
 
+        final List<File> tempDirs = new ArrayList<>();
+
         if (currentDir.getParentFile() != null) {
             currentFiles.add(new FileWrapper(currentDir.getPath(), FileWrapper.Type.PARENT_DIRECTORY, null, selectableBgId));
         }
 
+        final String[] SUPPORTED_EXTS = {".XEX", ".ATR", ".A8SAV"};
+
         File[] files = this.currentDir.listFiles(new FileFilter() {
-            public boolean accept(File name) {
-                if (name.isDirectory()) {
-                    return true;
+            public boolean accept(File file) {
+                if (file.isDirectory()) {
+                    tempDirs.add(file);
+                    return false;
                 }
-                // TODO supported file extensions
-                return FileUtils.isSupportedExtension(name.getName());
+                String nameAllCaps = file.getName().toUpperCase();
+                for (String supportedExtension : SUPPORTED_EXTS) {
+                    if (nameAllCaps.endsWith(supportedExtension)) return true;
+                }
+                return false;
             }
         });
 
+        Collections.sort(tempDirs);
         if (files != null) {
-            for (final File file : files) {
-                if (file.isDirectory()) {
-                    currentFiles.add(new FileWrapper(file.getPath(), FileWrapper.Type.DIRECTORY, null, selectableBgId));
+            Arrays.sort(files);
+        }
+
+        for (File dir : tempDirs) {
+            currentFiles.add(new FileWrapper(dir.getPath(), FileWrapper.Type.DIRECTORY, null, selectableBgId));
+        }
+
+        if (files != null) {
+            boolean hasSaves = false;
+            FileWrapper current = null;
+            for (File file : files) {
+                if (file.getName().toUpperCase().endsWith(".A8SAV")) {
+                    if (current != null && hasSaves == false) {
+                        String saveFileRegex = "^(" + Pattern.quote(current.getName()) + ").((\\d){13}|(qs(\\d){3}))(.a8sav)$";
+                        final Pattern saveFilePattern = Pattern.compile(saveFileRegex);
+                        if (saveFilePattern.matcher(file.getName()).matches()) {
+                            hasSaves = true;
+                            current.setHistoryAvailable(true);
+                        }
+                    }
                 } else {
-                    currentFiles.add(new FileWrapper(file.getPath(), FileWrapper.Type.FILE, getFileExtension(file), selectableBgId));
+                    if (current != null) {
+                        currentFiles.add(current);
+                    }
+                    hasSaves = false;
+                    current = new FileWrapper(file.getPath(), FileWrapper.Type.FILE, getFileExtension(file), selectableBgId);
                 }
             }
+
+            if (current != null) {
+                currentFiles.add(current);
+            }
         }
-        Collections.sort(currentFiles);
 
         return currentFiles;
     }

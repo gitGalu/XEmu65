@@ -33,16 +33,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.mikepenz.aboutlibraries.Libs;
 import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.mikepenz.aboutlibraries.LibsConfiguration;
 import com.mikepenz.aboutlibraries.entity.Library;
 import com.mikepenz.aboutlibraries.ui.LibsSupportFragment;
-
 import java.io.Serializable;
 import java.util.Comparator;
-
 import info.galu.dev.xemu65.R;
 import info.galu.dev.xemu65.util.UIUtils;
 
@@ -95,6 +92,9 @@ public class AboutActivity extends AppCompatActivity {
 
             @Override
             public boolean onLibraryContentClicked(View v, Library library) {
+                if ("Altirra ROM Set".equals(library.getLibraryName())) {
+                    showAltirraLicense();
+                }
                 return true;
             }
 
@@ -130,7 +130,7 @@ public class AboutActivity extends AppCompatActivity {
         };
 
         LibsSupportFragment fragment = new LibsBuilder()
-                .withLibraries("atari800", "appcompat_v7", "design", "support_cardview", "fancyshowcaseview", "flexibleadapter", "android_job")
+                .withLibraries("atari800", "altirraroms", "appcompat_v7", "design", "support_cardview", "fancyshowcaseview", "flexibleadapter", "android_job")
                 .withActivityStyle(Libs.ActivityStyle.DARK)
                 .withAboutIconShown(false)
                 .withLicenseShown(true)
@@ -148,6 +148,29 @@ public class AboutActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+    }
+
+    private void showAltirraLicense() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Copyright © 2016 Avery Lee, All Rights Reserved.\n\n" +
+                "Copying and distribution of this file, with or without modification, are permitted in any medium without royalty provided the copyright notice and this notice are preserved.  This file is offered as-is, without any warranty.")
+                .setTitle(R.string.about_altirra_message_title);
+
+        builder.setPositiveButton("Close", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     private void prepareUI() {
@@ -176,12 +199,8 @@ public class AboutActivity extends AppCompatActivity {
                 return true;
             case R.id.action_about_feedback:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Please consider that this app is free.\n" +
-                        "If you appreciate my work, please leave a rating on Google Play.\n" +
-                        "If you've found a bug or have a question, please drop me an e-mail.\n" +
-                        "\n" +
-                        "Thanks!")
-                        .setTitle("Feedback");
+                builder.setMessage(getString(R.string.about_message))
+                        .setTitle(R.string.about_message_title);
 
                 builder.setPositiveButton("Rate on Google Play", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -237,6 +256,12 @@ public class AboutActivity extends AppCompatActivity {
         @Override
         public int compare(Library library, Library t1) {
             if ("Atari800".equals(library.getLibraryName())) {
+                return -1;
+            }
+            if ("Altirra ROM Set".equals(library.getLibraryName())) {
+                if ("Atari800".equals(t1.getLibraryName())) {
+                    return 1;
+                }
                 return -1;
             }
             return library.getLibraryName().compareTo(t1.getLibraryName());

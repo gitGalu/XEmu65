@@ -59,9 +59,6 @@ public class FileWrapper extends AbstractFlexibleItem<FileWrapper.FileWrapperVie
         this.extension = extension;
         this.selectableBgId = selectableBgId;
         this.name = new File(path).getName();
-        if (type == Type.FILE) {
-            this.isHistoryAvailable = FileUtils.getSaveStateFilesAvailability(new File(path).getParent(), name);
-        }
     }
 
     public String getPath() {

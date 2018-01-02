@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="define_int_AltirraRoms">year;owner</string>
+    <string name="library_AltirraRoms_author">Avery Lee</string>
+    <string name="library_AltirraRoms_authorWebsite">http://www.virtualdub.org/altirra.html</string>
+    <string name="library_AltirraRoms_libraryName">Altirra ROM Set</string>
+    <string name="library_AltirraRoms_libraryDescription">
+        These are replacements for the standard Atari ROMs that would normally be present in these systems; they are not the original ROMs, but new ones rewritten from scratch to match the same programming interface without the original code. They may be used in either real hardware or in emulators with sufficient accuracy.
+    </string>
+    <string name="library_AltirraRoms_libraryVersion">1.0.0</string>
+    <string name="library_AltirraRoms_libraryWebsite">http://www.virtualdub.org/altirra.html</string>
+    <string name="library_AltirraRoms_licenseId"></string>
+    <string name="library_AltirraRoms_isOpenSource">true</string>
+    <string name="library_AltirraRoms_repositoryLink">http://www.virtualdub.org/altirra.html</string>
+    <string name="library_AltirraRoms_classPath"></string>
+    <string name="library_AltirraRoms_owner">Avery Lee</string>
+    <string name="library_AltirraRoms_year">2016</string>
+</resources>

@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <array name="pref_region_keys">
+        <item>PAL / SECAM, 50Hz (Europe)</item>
+        <item>NTSC, 60Hz (North America)</item>
+    </array>
+    <array name="pref_region_values">
+        <item>PAL</item>
+        <item>NTSC</item>
+    </array>
+
+    <array name="pref_rom_keys">
+        <item>Altirra (built-in)</item>
+        <item>Atari (most compatible)</item>
+    </array>
+    <array name="pref_rom_values">
+        <item>ALTIRRA</item>
+        <item>ORIGINAL</item>
+    </array>
+
+</resources>

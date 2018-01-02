@@ -48,7 +48,7 @@
 extern void Android_SoundInit(int rate, int sizems, int bit16, int hq, int disableOSL);
 
 //extern void Android_Joy(int direction, int state);
-//extern void Android_Special(int key);
+//extern void Androidb_Special(int key);
 extern void Sound_Exit(void);
 
 extern void Sound_Pause(void);

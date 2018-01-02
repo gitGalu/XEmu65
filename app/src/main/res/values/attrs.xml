@@ -4,4 +4,8 @@
         <attr name="vertical" format="boolean" />
         <attr name="labelAlpha" format="float" />
     </declare-styleable>
+    <declare-styleable name="SpinnerPreference">
+        <attr name="entries" />
+        <attr name="entryValues" />
+    </declare-styleable>
 </resources>

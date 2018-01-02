@@ -1,0 +1,36 @@
+<android.support.v7.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.PreferenceCategory
+        android:key="pref_category_atari"
+        android:title="Emulated Atari settings">
+
+        <info.galu.dev.xemu65.prefs.SpinnerPreference
+            android:key="pref_region"
+            android:defaultValue="0"
+            android:title="TV Mode"
+            app:entries="@array/pref_region_keys"
+            app:entryValues="@array/pref_region_values"
+            android:theme="@style/PreferencesTheme.Spinner"
+            android:textAlignment="textEnd"
+            />
+
+        <Preference
+            android:key="scan_roms"
+            android:title="Scan for ROMs"
+            android:summary="Click if you want to know how to use original Atari ROMs" />
+
+        <info.galu.dev.xemu65.prefs.SpinnerPreference
+            android:key="pref_rom"
+            android:defaultValue="0"
+            android:title="ROM Set"
+            app:entries="@array/pref_rom_keys"
+            app:entryValues="@array/pref_rom_values"
+            android:theme="@style/PreferencesTheme.Spinner"
+            android:textAlignment="textEnd"
+            />
+
+    </android.support.v7.preference.PreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

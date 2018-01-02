@@ -18,6 +18,17 @@
         <item name="about_libraries_text_openSource">@color/colorAboutCardLicenseText</item>
     </style>
 
+    <style name="SettingsTheme" parent="NormalTheme">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="NormalTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -35,5 +46,23 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="PreferencesTheme" parent="Theme.AppCompat">
+    </style>
+
+    <style name="PreferencesTheme.Spinner">
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+    </style>
+
+    <style name="SpinnerItem">
+        <item name="android:gravity">end|center_vertical</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="SpinnerDropDownItem">
+        <item name="android:gravity">end|center_vertical</item>
+        <item name="android:paddingRight">16dp</item>
     </style>
 </resources>

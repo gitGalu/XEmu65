@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">XEmu65</string>
     <string name="activity_title">XEmu65</string>
-    <string name="about_description"><![CDATA[<b>XEmu65</b> (C) 2017 <b>Michał Galiński</b>.<br/><b>Atari800</b> (C) <b>David Firth</b>, (C) <b>Atari800 Development Team</b>.<br/>Based on official port of <b>Atari800</b> for Android by <b>Kostas Nakos</b>.<br/>Atari ROM and Atari BASIC replacements by <b>Avery Lee</b>.<br/>Licensed under GNU General Public License v2.<br/>This app is not affiliated or endorsed by Atari Inc.]]></string>
+    <string name="about_description"><![CDATA[<b>XEmu65</b> (C) 2017-2018 <b>Michał Galiński</b>.<br/><b>Atari800</b> (C) <b>David Firth</b>, (C) <b>Atari800 Development Team</b>.<br/>Based on official port of <b>Atari800</b> for Android by <b>Kostas Nakos</b>.<br/>Atari ROM and Atari BASIC replacements by <b>Avery Lee</b>.<br/>Licensed under GNU General Public License.<br/>This app is not affiliated or endorsed by Atari Inc.]]></string>
     <string name="about_app_name">XEmu65 - Emulator of Atari 8-bit computers.</string>
     <string name="save_snack_message">This savestate will be deleted.</string>
     <string name="save_snack_undo">UNDO</string>
@@ -15,4 +15,8 @@
     <string name="tutorial_caption_load_state">Load state.</string>
     <string name="tutorial_caption_load_game">Load game.</string>
     <string name="tutorial_caption_joystick">Touch-optimized joystick controls.</string>
+    <string name="about_message">Please consider that this app is free.\nIf you appreciate my work, please leave a rating on Google Play.\nIf you\'ve found a bug or have a question, please drop me an e-mail.\n\nThanks!</string>
+    <string name="about_message_title">Feedback</string>
+    <string name="about_altirra_message_title">Altirra ROM Set</string>
+    <string name="rom_set_message">To improve compatiblity, you can use original Atari ROMs. XEmu65 can scan your Downloads directory for xf25.zip file that you need to manually download from the Internet.</string>
 </resources>

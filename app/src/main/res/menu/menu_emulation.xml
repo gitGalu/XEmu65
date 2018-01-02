@@ -27,17 +27,11 @@
         android:title="Save"
         app:showAsAction="always" />
 
-    <!--<item-->
-    <!--android:id="@+id/action_quicksave"-->
-    <!--android:icon="@drawable/ic_update_white_24dp"-->
-    <!--android:title="Quick save"-->
-    <!--app:showAsAction="always"/>-->
-
-    <!--<item-->
-    <!--android:id="@+id/action_fullscreen"-->
-    <!--android:icon="@drawable/ic_fullscreen_white_24dp"-->
-    <!--android:title="Full Screen"-->
-    <!--app:showAsAction="always"/>-->
+    <item
+        android:id="@+id/action_prefs"
+        android:icon="@drawable/ic_info_outline_white_24dp"
+        android:title="Settings"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_about"
