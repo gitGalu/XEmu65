@@ -1,6 +1,8 @@
 	XEmu65 is an experimental emulator of Atari 8-bit computers, designed for Android phones.
 	It's main focus is on simplicity and good touchscreen controls for playing games.
 
+	Download in from Google Play: [http://play.google.com/store/apps/details?id=info.galu.dev.xemu65](http://play.google.com/store/apps/details?id=info.galu.dev.xemu65)
+
     XEMu65 is based on Atari800.
 
 	Main features:
