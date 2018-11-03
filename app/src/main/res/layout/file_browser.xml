@@ -1,4 +1,4 @@
-<android.support.design.widget.CoordinatorLayout android:id="@+id/file_browser"
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/file_browser"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,13 +7,13 @@
     android:background="?android:attr/selectableItemBackground"
     tools:context=".filebrowser.FileBrowser">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -21,9 +21,9 @@
             app:titleTextAppearance="@style/Toolbar.TitleText"
             android:visibility="visible" />
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -47,4 +47,4 @@
         app:fastScrollerIgnoreTouchesOutsideHandle="false"
         tools:visibility="visible" />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

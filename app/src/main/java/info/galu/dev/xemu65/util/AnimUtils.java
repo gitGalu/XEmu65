@@ -22,7 +22,7 @@ package info.galu.dev.xemu65.util;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v4.app.ActivityOptionsCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import android.view.animation.Interpolator;
 
 /**

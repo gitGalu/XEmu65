@@ -22,7 +22,7 @@ package info.galu.dev.xemu65;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.support.design.widget.CoordinatorLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 

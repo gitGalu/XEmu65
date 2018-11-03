@@ -25,10 +25,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -137,7 +137,6 @@ public class AboutActivity extends AppCompatActivity {
                 .withAutoDetect(false)
                 .withSortEnabled(true)
                 .withFields(R.string.class.getFields())
-                .withLibraryComparator(new A800LibraryComparator())
                 .withAboutAppName(getString(R.string.about_app_name))
                 .withVersionShown(false)
                 .withAboutVersionShown(false)
