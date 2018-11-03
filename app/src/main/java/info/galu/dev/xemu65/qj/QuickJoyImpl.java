@@ -109,20 +109,10 @@ public class QuickJoyImpl extends RelativeLayout {
             this.isRunning = true;
         }
 
-        ObjectAnimator animTextFadeIn1 = AnimUtils.getAnimator(ObjectAnimator.ofInt(lr, "labelAlpha", 127), new AccelerateInterpolator(), 0, 200);
-        ObjectAnimator animTextFadeIn2 = AnimUtils.getAnimator(ObjectAnimator.ofInt(ud, "labelAlpha", 127), new AccelerateInterpolator(), 0, 200);
-        ObjectAnimator animTextFadeIn3 = AnimUtils.getAnimator(ObjectAnimator.ofInt(fire1, "labelAlpha", 127), new AccelerateInterpolator(), 0, 200);
-        ObjectAnimator animTextFadeIn4 = AnimUtils.getAnimator(ObjectAnimator.ofInt(startBtn, "labelAlpha", 127), new AccelerateInterpolator(), 0, 200);
-
         ObjectAnimator animFadeIn = AnimUtils.getAnimator(ObjectAnimator.ofFloat(this, "alpha", TARGET_ALPHA, 0.5f, 0.5f, 0.5f, TARGET_ALPHA), new AccelerateDecelerateInterpolator(), 0, 5_000);
-        ObjectAnimator animTextFade1 = AnimUtils.getAnimator(ObjectAnimator.ofInt(lr, "labelAlpha", 0), new AccelerateInterpolator(), 10_000, 500);
-        ObjectAnimator animTextFade2 = AnimUtils.getAnimator(ObjectAnimator.ofInt(ud, "labelAlpha", 0), new AccelerateInterpolator(), 10_000, 500);
-        ObjectAnimator animTextFade3 = AnimUtils.getAnimator(ObjectAnimator.ofInt(fire1, "labelAlpha", 0), new AccelerateInterpolator(), 10_000, 500);
-        ObjectAnimator animTextFade4 = AnimUtils.getAnimator(ObjectAnimator.ofInt(startBtn, "labelAlpha", 0), new AccelerateInterpolator(), 10_000, 500);
 
         AnimatorSet animSet = new AnimatorSet();
-        animSet.play(animTextFadeIn1).with(animTextFadeIn2).with(animTextFadeIn3).with(animTextFadeIn4).with(animFadeIn).before(animTextFade1);
-        animSet.play(animTextFade1).with(animTextFade2).with(animTextFade3).with(animTextFade4);
+        animSet.play(animFadeIn);
 
         animSet.start();
 
